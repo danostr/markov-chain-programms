@@ -13,13 +13,16 @@ class Markov {
 			const nextChar = textSource[i + degree];
 			this.learnTransition(state, nextChar);
 		}
+		console.log("Transitions: ", this.transitions);  // Debugging statement
 	}
 
 	learnTransition(state, nextChar) {
+		let entry = this.transitions[state];
+
 		if (!this.transitions[state]) {
 			this.transitions[state] = [nextChar];
 		} else if (!entry.includes(nextChar)) {
-			this.transitions[state].push(nextChar);
+			entry.push(nextChar);
 		}
 	}
 
@@ -37,12 +40,13 @@ class Markov {
 		}
 
 		let result = sequence.join("");
-		result = result.replaceAll(/X/g, "&#13");
+		result = result.replaceAll("X", "&#13");
 		return result + "...";
 	}
 
 	randomTransition(state) {
 		const transitions = this.transitions[state];
+
 		if (transitions) {
 			return random(transitions);
 		}
@@ -51,6 +55,7 @@ class Markov {
 	transitionsAsString() {
 		const strings = [];
 		const connectionsAsTable = Object.entries(this.transitions);
+
 		for (let [theseSigns, nextChar] of connectionsAsTable) {
 			theseSigns = theseSigns.replaceAll(" ", "_");
 			nextChar = nextChar.join("|");
@@ -58,6 +63,7 @@ class Markov {
 			const string = theseSigns + " -> " + nextChar;
 			strings.push(string);
 		}
+
 		const result = strings.join("&#13;");
 		return result;
 	}
