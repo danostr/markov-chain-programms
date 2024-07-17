@@ -1,12 +1,23 @@
 let textSource;
-let markow;
+let markov;
 	
 function setup() {
 	GUI.generateGUI();
-	markow = new Markow();
+	markov = new Markov();
 	textSelected();
 	smooth();
 	noLoop();
+	
+	const text = "the quick brown fox jumps over the lazy dog";
+	const degree = 3;
+
+	markov.learnText(text, degree);
+	console.log("Transitions: ", markov.transitions);
+
+	const generatedText = markov.generateText("the", 50);
+	console.log("Generated Text: ", generatedText);
+
+	console.log("Transitions as String: ", markov.transitionsAsString());
 }	
 	
 function textSelected() {
@@ -47,14 +58,14 @@ function loadText(path) {
 }	
 
 function learnText() {
-	markow.learnText(textSource, int(GUI.degreeSelector.value()));
-	GUI.textOutputElement.html(markow.transitionsAsString());
+	markov.learnText(textSource, int(GUI.degreeSelector.value()));
+	GUI.textOutputElement.html(markov.transitionsAsString());
 	GUI.generateTextButton.removeAttribute('disabled');
 }	
 	
 function generateText() {
-	const begin = textSource.slice(0, int(GUI.degreeSelector.value()));
-	const generatedText = markow.generateText(begin, int(GUI.lengthSelector.value()));
+	const start = textSource.slice(0, int(GUI.degreeSelector.value()));
+	const generatedText = markov.generateText(start, int(GUI.lengthSelector.value()));
 	GUI.textOutputElement.html(generatedText);
 }	
 
