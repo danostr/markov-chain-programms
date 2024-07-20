@@ -1,12 +1,17 @@
 let textSource;
 let markov;
 	
+/**
+ * Setup function initializes the GUI and the Markov instance,
+ * and calls textSelected to load initial text source.
+ */
 function setup() {
 	GUI.generateGUI();
 	markov = new Markov();
 	textSelected();
 }	
 	
+// Handles the text source selection. It loads the selected text source.
 function textSelected() {
 	GUI.textOutputElement.html("");
 	GUI.learnTextButton.removeAttribute('disabled', '');
@@ -22,11 +27,13 @@ function textSelected() {
     }
 }	
 	
+// Handles degree selection change.
 function degreeSelected() {
 	GUI.textOutputElement.html();
-	GUI.generateTextButton.attribute('disabled', '');
+	GUI.generateTextButton.attribute('disabled', true);
 }	
 	
+//Loads text from the specified path, processes it, and updates the GUI.
 function loadText(path) {
 	loadStrings(path, stringArray => {
 		textSource = stringArray.join("\n").toLowerCase();
@@ -39,15 +46,24 @@ function loadText(path) {
 	});
 }	
 
+/**
+ * Learns the text using the Markov model with the specified degree.
+ * Cleans the text by removing paired characters and numbers with functions from *utils.js*
+ * Updates the GUI with the learned transitions and enables the generate text button.
+ */
 function learnText() {
+	const degree = int(GUI.degreeSelector.value());
 	let cleanedText = removePairedCharacters(textSource);
 	cleanedText = removeNumbers(cleanedText);
-	const degree = int(GUI.degreeSelector.value());
 	markov.learnText(cleanedText, degree);
 	GUI.textOutputElement.html(markov.transitionsAsString());
 	GUI.generateTextButton.removeAttribute('disabled');
 }	
-	
+
+/**
+ * Generates text using the Markov model starting from a random position in the text source.
+ * Updates the GUI with the generated text.
+ */	
 function generateText() {
 	const degree = int(GUI.degreeSelector.value());
 	const firstChar = random(0, textSource.length - degree);
@@ -56,8 +72,12 @@ function generateText() {
 	GUI.textOutputElement.html(generatedText);
 }	
 
+/**
+ * Handles changes in the text source selector.
+ * Loads the selected text source or handles file upload if selected.
+ */
 function handleTextSourceChange() {
-	GUI.generateTextButton.attribute('disabled', '');
+	GUI.generateTextButton.attribute('disabled', true);
 	const selectedSource = GUI.textSelector.value();
 
 	if (selectedSource.startsWith('uploaded-')) {
@@ -75,26 +95,29 @@ function handleTextSourceChange() {
 	}
 }
 
+// Handles file selection and reads the uploaded file as text.
 async function handleFileSelect(event) {
 	const file = event.target.files[0];
 	if (!file) return;
 
 	const reader = new FileReader();
-	reader.onload = function (e) {
+	reader.onload = e => {
 		const text = e.target.result;
 		const fileName = file.name;
-
 		displayUploadedText(text, fileName);
 		GUI.textSelector.value('uploaded-' + fileName);
 	};
 	reader.readAsText(file);
 }
 
+/**
+ * Displays the uploaded text and updates the GUI.
+ * Adds the uploaded file name to the text source selector.
+ */
 function displayUploadedText(text, fileName) {
 	textSource = text;
 	GUI.textOutputElement.html(text);
 	const uploadedFileName = 'uploaded-' + fileName;
-	GUI.textSelector.option(fileName, uploadedFileName);
 	GUI.textSelector.option(fileName, uploadedFileName);
 	GUI.learnTextButton.removeAttribute('disabled');
 }
