@@ -230,18 +230,18 @@ footer {
  * Media query for screens with a maximum width of 799px 
  * Adjust layout and element sizes for medium screens
  */
-@media screen and (max-width: 799px) {
+@media screen and (max-width: 1080px) {
 	main {
 		flex-direction: column;
 		align-items: center;
 		padding: 1rem;
 		width: 100%;
-		max-width: 800px;
+		max-width: 1080px;
 	}
 
 	.content-wrapper {
 		width: 70%;
-		max-width: 800px;
+		max-width: 1080px;
 	}
 
 	.label-container {

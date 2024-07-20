@@ -69,17 +69,17 @@ textarea {
 }
 
 /*
- * Media query for screens with a maximum width of 799px 
+ * Media query for screens with a maximum width of 1080px 
  * Adjust layout and element sizes for medium screens
  */
-@media screen and (max-width: 799px) {
+@media screen and (max-width: 1080px) {
 	.content-wrapper {
 		width: 70%;
-		max-width: 800px;
+		max-width: 1079px;
 	}
 
 	textarea {
 		width: 100%;
-		max-width: 800px;
+		max-width: 1079px;
 	}
 }
