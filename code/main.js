@@ -5,19 +5,6 @@ function setup() {
 	GUI.generateGUI();
 	markov = new Markov();
 	textSelected();
-	//smooth();
-	//noLoop();
-	
-	const text = "the quick brown fox jumps over the lazy dog";
-	const degree = 3;
-
-	markov.learnText(text, degree);
-	console.log("Transitions: ", markov.transitions);
-
-	const generatedText = markov.generateText("the", 50);
-	console.log("Generated Text: ", generatedText);
-
-	console.log("Transitions as String: ", markov.transitionsAsString());
 }	
 	
 function textSelected() {
@@ -44,7 +31,6 @@ function loadText(path) {
 	loadStrings(path, stringArray => {
 		textSource = stringArray.join("\n").toLowerCase();
 		textSource = textSource.replaceAll("\n", "X");
-		textSource = removePairedCharacters(textSource);
 		GUI.textOutputElement.html(textSource);
 		GUI.learnTextButton.removeAttribute("disabled");
 	}, error => {
@@ -54,13 +40,18 @@ function loadText(path) {
 }	
 
 function learnText() {
-	markov.learnText(textSource, int(GUI.degreeSelector.value()));
+	let cleanedText = removePairedCharacters(textSource);
+	cleanedText = removeNumbers(cleanedText);
+	const degree = int(GUI.degreeSelector.value());
+	markov.learnText(cleanedText, degree);
 	GUI.textOutputElement.html(markov.transitionsAsString());
 	GUI.generateTextButton.removeAttribute('disabled');
 }	
 	
 function generateText() {
-	const start = textSource.slice(0, int(GUI.degreeSelector.value()));
+	const degree = int(GUI.degreeSelector.value());
+	const firstChar = random(0, textSource.length - degree);
+	const start = textSource.slice(firstChar, firstChar + degree);
 	const generatedText = markov.generateText(start, int(GUI.lengthSelector.value()));
 	GUI.textOutputElement.html(generatedText);
 }	
