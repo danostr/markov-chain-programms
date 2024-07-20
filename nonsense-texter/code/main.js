@@ -82,7 +82,7 @@ function handleTextSourceChange() {
 
 	if (selectedSource.startsWith('uploaded-')) {
         const fileName = selectedSource.replace('uploaded-', '');
-        const uploadedFilePath = 'sources/' + fileName; 
+        const uploadedFilePath = '../sources/' + fileName; 
         loadText(uploadedFilePath); 
     } else if (selectedSource === 'upload') {
 		const input = document.createElement('input');
@@ -91,7 +91,7 @@ function handleTextSourceChange() {
 		input.onchange = handleFileSelect;
 		input.click();
 	} else {
-		loadText('sources/' + selectedSource);
+		loadText('../sources/' + selectedSource);
 	}
 }
 
