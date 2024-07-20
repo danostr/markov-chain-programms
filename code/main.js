@@ -5,8 +5,8 @@ function setup() {
 	GUI.generateGUI();
 	markov = new Markov();
 	textSelected();
-	smooth();
-	noLoop();
+	//smooth();
+	//noLoop();
 	
 	const text = "the quick brown fox jumps over the lazy dog";
 	const degree = 3;
@@ -41,20 +41,16 @@ function degreeSelected() {
 }	
 	
 function loadText(path) {
-	loadStrings(path, formatText, onLoadError);
-
-	function formatText(stringArray) {
-		textSource = stringArray.join("\n");
-		textSource = textSource.toLowerCase();
+	loadStrings(path, stringArray => {
+		textSource = stringArray.join("\n").toLowerCase();
 		textSource = textSource.replaceAll("\n", "X");
+		textSource = removePairedCharacters(textSource);
 		GUI.textOutputElement.html(textSource);
 		GUI.learnTextButton.removeAttribute("disabled");
-	}
-
-	function onLoadError(error) {
+	}, error => {
 		console.error('Error loading text file:', error);
 		GUI.textOutputElement.html('Error loading text file. Please try again.');
-	}
+	});
 }	
 
 function learnText() {
