@@ -2,69 +2,24 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="shared/style.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 	</head>
 	<body>
 		<header>
-			<a href="index.html"><img id="home" src="img/home.png" /></a>
             <div class="header-title-wrapper">
-                <h1>Nonsense-Texter</h1>
+                <h1>Markov-chain Programms</h1>
             </div>
 	    </header>
 	    <main>
-	    	<div class="content-wrapper">
-	        	<textarea id="textOutputElement" disabled></textarea>
-	        	<label id="legend">_ = Space, X = Wordwrap, | = Delimiter</label>
-	        </div>
-
-	        <div class="controls-wrapper">
-		        <div class="label-container">
-			        <label for="textSelector">Source:</label>
-			        <select id="textSelector">
-			            <option disabled>Ukraine</option>
-			            <option value="shevchenko.txt">Taras Shevchenko</option>
-			            <option value="franko.txt">Ivan Franko</option>
-			            <option disabled>Germany</option>
-			            <option value="kafka.txt">Franz Kafka</option>
-			            <option disabled>United Kingdom</option>
-			            <option value="rowling.txt">J. K. Rowling</option>
-			            <option disabled>France</option>
-			            <option value="camus.txt">Albert Camus</option>
-			            <option value="upload">Upload own txt-file</option>
-			        </select>
-		    	</div>
-
-			    <div class="label-container">
-			        <label for="degreeSelector">Degree:</label>
-			        <select id="degreeSelector">
-			            <option value="0">0</option>
-			            <option value="1">1</option>
-			            <option value="2">2</option>
-			            <option value="3">3</option>
-			            <option value="4">4</option>
-			            <option value="5">5</option>
-			            <option value="6">6</option>
-			        </select>
-			    </div>
-
-			    <div class="label-container">
-			        <label for="lengthSelector">Length:</label>
-			        <select id="lengthSelector">
-			            <option value="50">50</option>
-			            <option value="300">300</option>
-			            <option value="750">750</option>
-			            <option value="1500">1500</option>
-			            <option value="3000">3000</option>
-			            <option value="3000">10000</option>
-			        </select>
-			    </div>
-
+	    	<div class="content-container">
+	    		<div id="opening">
+	    			<h2>Welcome</h2>
+	    		</div>
 			    <div class="button-container">
-		        	<button id="learnTextButton" title="Click to learn the text for possible transitions between characters" disabled>Learn Text</button>
-		        	<button id="generateTextButton" title="Click to generate a new text predicted on transitions the programm has researched in the original one" disabled>Generate Text</button>
+		        	<a id="nonsense-texter" href="nonsense-texter/index.html">Nonsense Texter</a>
+		        	<button disabled>In development</button>
 		        </div>	
-
 		        <div class="link-container">
 		        	<p><a id="guide" href="faq.html">How does it work?</a></p>
 		        </div>
@@ -73,9 +28,5 @@
 	    <footer>
 	        &copy; 2024 Daniel Ostrovskyi
 	    </footer>
-		<script src="code/utils.js"></script>
-		<script src="code/gui.js"></script>
-		<script src="code/markov.js"></script>
-		<script src="code/main.js"></script>
 	</body>
 </html>

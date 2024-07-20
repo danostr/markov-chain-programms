@@ -23,7 +23,7 @@ function textSelected() {
         const fileName = selectedSource.replace('uploaded-', ''); 
         displayUploadedText(textSource, fileName); 
     } else {
-        loadText("sources/" + selectedSource);
+        loadText("../sources/" + selectedSource);
     }
 }	
 	
